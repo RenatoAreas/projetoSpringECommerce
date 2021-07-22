@@ -13,41 +13,41 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CLIENTE")
+@Table
 public class Cliente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Integer idCliente;
-
+	
 	@Column(length = 250, nullable = false)
 	private String nome;
-
+	
 	@Column(length = 100, nullable = false, unique = true)
 	private String email;
-
+	
 	@Column(length = 11, nullable = false, unique = true)
 	private String cpf;
-
+	
 	@Column(length = 13, nullable = false)
 	private String telefone;
-
+	
 	@Column(length = 50, nullable = false)
 	private String senha;
 
 	/*
-	 * Neste relacionamento devemos colocar o nome do atributo da classe Endereco
-	 * onde esta mapeado a chave estrangeira com Cliente na classe Endereco este
-	 * atributo é: [private Cliente cliente] O mappedBy deve fazer referencia ao
-	 * nome deste atributo
+	 	Neste relacionamento devemos colocar o nome do atributo
+	 	da classe Endereco onde esta mapeado a chave estrangeira com Cliente	 	
+	 	na classe Endereco este atributo é: [private Cliente cliente]	 	
+	 	O mappedBy deve fazer referencia ao nome deste atributo
 	 */
 	@OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private Endereco endereco;
-
-	@OneToMany(mappedBy = "cliente")
+	
+	@OneToMany(mappedBy = "cliente") //1 Cliente para Muitos Pedidos
 	private List<Pedido> pedidos;
-
+	
 	public Cliente() {
 		// TODO Auto-generated constructor stub
 	}
@@ -119,7 +119,7 @@ public class Cliente {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-
+	
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
